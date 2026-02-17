@@ -1,0 +1,43 @@
+---
+import Card from "../Card.astro";
+---
+
+<Card
+    class="col-span-1 md:col-span-4 md:row-span-1 group p-0 overflow-hidden border-dotnet/20"
+>
+    <a
+        href="/Kacper_CV.pdf"
+        download="Kacper_CV.pdf"
+        class="w-full h-full flex items-center justify-between px-6 py-6 md:py-0 hover:bg-dotnet/[0.03] transition-all"
+    >
+        <div class="flex flex-col">
+            <span
+                class="text-[10px] font-black text-dotnet uppercase tracking-[0.2em] mb-1"
+                >Get the file</span
+            >
+            <span
+                class="text-lg md:text-xl font-black text-white tracking-tight italic uppercase"
+                >My Resume</span
+            >
+        </div>
+        <div
+            class="p-3 bg-dotnet/10 rounded-xl text-dotnet group-hover:bg-dotnet group-hover:text-white transition-all"
+        >
+            <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="3"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+            >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" x2="12" y1="15" y2="3"></line>
+            </svg>
+        </div>
+    </a>
+</Card>

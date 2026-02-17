@@ -1,0 +1,25 @@
+---
+import Layout from "../layouts/Layout.astro";
+import Hero from "../components/bento/Hero.astro";
+import Expertise from "../components/bento/Expertise.astro";
+import ProjectsCard from "../components/bento/ProjectsCard.astro";
+import ResumeCard from "../components/bento/ResumeCard.astro";
+import Socials from "../components/bento/Socials.astro";
+import "../styles/global.css";
+---
+
+<Layout title="Kacper Smaga | Full Stack .NET & Next.js">
+	<main
+		class="flex md:items-center justify-center min-h-screen w-full p-4 md:p-10"
+	>
+		<div
+			class="grid grid-cols-1 md:grid-cols-12 gap-5 auto-rows-auto md:auto-rows-[120px] w-full max-w-[1200px] py-10 md:py-0"
+		>
+			<Hero />
+			<Expertise />
+			<ProjectsCard />
+			<ResumeCard />
+			<Socials />
+		</div>
+	</main>
+</Layout>

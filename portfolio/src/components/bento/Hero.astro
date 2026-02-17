@@ -1,0 +1,34 @@
+---
+import Card from "../Card.astro";
+---
+
+<Card
+    class="col-span-1 md:col-span-8 md:row-span-3 flex flex-col md:flex-row gap-6 md:gap-8 items-center text-center md:text-left bg-gradient-to-br from-bento-bg to-dotnet/5"
+>
+    <div
+        class="w-32 h-32 md:w-48 md:h-48 rounded-3xl overflow-hidden border-2 border-dotnet/20 shrink-0 shadow-2xl"
+    >
+        <img
+            src="/twoje-zdjecie.jpg"
+            alt="Kacper Smaga"
+            class="w-full h-full object-cover"
+        />
+    </div>
+    <div class="flex flex-col justify-center mt-4 md:mt-0">
+        <span
+            class="text-dotnet font-mono text-sm mb-2 tracking-tighter uppercase"
+            >// Full Stack Engineer</span
+        >
+        <h1
+            class="text-3xl lg:text-5xl font-black text-white mb-4 leading-none uppercase tracking-tight"
+        >
+            Kacper Smaga <span class="text-dotnet">.</span>
+        </h1>
+        <p class="text-gray-400 text-base md:text-lg max-w-md leading-relaxed">
+            I specialize in <strong class="text-white font-bold">.NET</strong> systems
+            and modern interfaces built with <strong
+                class="text-white font-bold">Next.js</strong
+            > and <strong class="text-white font-bold">Astro</strong>.
+        </p>
+    </div>
+</Card>

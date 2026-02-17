@@ -1,0 +1,59 @@
+---
+import Card from "../Card.astro";
+---
+
+<Card
+    class="col-span-1 md:col-span-4 md:row-span-2 group cursor-pointer bg-astro/5 border-astro/20 hover:bg-astro/10 min-h-[160px] md:min-h-0"
+>
+    <a href="/projects" class="h-full flex flex-col">
+        <div class="flex justify-between items-start">
+            <div
+                class="p-3 bg-astro/20 rounded-2xl text-astro group-hover:scale-110 transition-transform"
+            >
+                <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="24"
+                    height="24"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="2.5"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    ><rect width="7" height="7" x="3" y="3" rx="1"></rect><rect
+                        width="7"
+                        height="7"
+                        x="14"
+                        y="3"
+                        rx="1"></rect><rect
+                        width="7"
+                        height="7"
+                        x="14"
+                        y="14"
+                        rx="1"></rect><rect
+                        width="7"
+                        height="7"
+                        x="3"
+                        y="14"
+                        rx="1"></rect></svg
+                >
+            </div>
+            <span
+                class="text-astro font-bold text-xl transition-transform group-hover:translate-x-1 group-hover:-translate-y-1"
+                >↗</span
+            >
+        </div>
+        <div class="mt-10 md:mt-auto">
+            <h2
+                class="text-2xl font-black text-white tracking-tight uppercase italic"
+            >
+                Projects
+            </h2>
+            <p
+                class="text-xs text-gray-500 mt-1 font-bold tracking-wide uppercase"
+            >
+                Commercial & Open Source
+            </p>
+        </div>
+    </a>
+</Card>
