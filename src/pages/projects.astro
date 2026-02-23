@@ -4,6 +4,96 @@ import ProjectCard from "../components/ProjectCard.astro";
 
 import imgEshop from "../assets/eshop-preview.jpg";
 import "../styles/global.css";
+import ProjectModal from "../components/ProjectModal.astro";
+
+const projects = [
+    {
+        title: "eShop Modular",
+        description:
+            "Advanced modular e-commerce system built with Clean Architecture. Focused on scalability and module independence.",
+        image: imgEshop,
+        tags: ["CQRS", "DDD", "PostgreSQL", "SignalR"],
+        githubUrl: "https://github.com/kacpersmaga",
+        challenge:
+            "Avoiding the 'Big Ball of Mud' by implementing strict boundaries between business modules in a single repository.",
+        decisions:
+            "I chose a Modular Monolith over Microservices to reduce infrastructure complexity while keeping the code ready for future split.",
+        deepDive:
+            "Implemented an Outbox Pattern for reliable domain event dispatching between modules using EF Core and Background Services.",
+        lessons:
+            "Learned that proper aggregate design is the hardest but most crucial part of DDD.",
+    },
+    {
+        title: "Auth Service",
+        description:
+            "Identity Server integration with custom JWT flow and OAuth2. Complete security layer for microservices.",
+        tags: ["OAuth2", "Identity", "JWT"],
+        githubUrl: "https://github.com/kacpersmaga",
+        challenge:
+            "Creating a secure, centralized authentication point that supports different client types (SPA, Mobile, Machine).",
+        decisions:
+            "Used ASP.NET Core Identity with OpenIddict to have full control over the token generation process.",
+        deepDive:
+            "Customized JWT claims transformation to include fine-grained permissions based on user roles and organization context.",
+        lessons:
+            "Security is not only about code, but also about proper protocol flow and secret management.",
+    },
+    {
+        title: "Clean Template",
+        description:
+            "Personal starter template for .NET projects with pre-configured MediatR and FluentValidation.",
+        tags: ["MediatR", "xUnit", "FluentVal"],
+        githubUrl: "https://github.com/kacpersmaga",
+        challenge:
+            "Setting up a new project always felt repetitive, so I automated the boilerplate.",
+        decisions:
+            "Included a Result Pattern to avoid throwing exceptions for business logic errors.",
+        deepDive:
+            "Built-in Global Exception Handler that maps different error types to proper RFC 7807 Problem Details.",
+        lessons:
+            "A good template is one that is minimal enough to be flexible, but strict enough to maintain order.",
+    },
+    {
+        title: "Traffic Monitor",
+        description:
+            "Real-time analytics processingmassive data streams using SignalR and Azure Functions.",
+        tags: ["SignalR", "Azure", "Redis"],
+        githubUrl: "https://github.com/kacpersmaga",
+        challenge:
+            "Visualizing real-time data spikes without refreshing the page or overloading the client.",
+        decisions:
+            "Used Redis Backplane for SignalR to allow horizontal scaling across multiple server instances.",
+        deepDive:
+            "Implemented a throttling mechanism in Azure Functions to batch updates before sending them to the Hub.",
+        lessons:
+            "Websockets are powerful but require careful management of connection lifecycles.",
+    },
+    {
+        title: "Event Bus",
+        description:
+            "Lightweight event bus implementation over RabbitMQ for inter-module communication.",
+        tags: ["RabbitMQ", "Events", "C#"],
+        githubUrl: "https://github.com/kacpersmaga",
+        challenge:
+            "Ensuring that messages are not lost when a consumer service is temporarily down.",
+        decisions:
+            "Implemented Dead Letter Exchanges (DLX) to handle failed message processing and retries.",
+        deepDive:
+            "Used Polly for exponential backoff and circuit breaker patterns during message consumption.",
+        lessons:
+            "Distributed systems fail in unpredictable ways; always design for failure.",
+    },
+];
+
+const getGridClass = (index: number) => {
+    const pattern = index % 5;
+    if (pattern === 0) return "md:col-span-8 md:row-span-2 cursor-pointer";
+    if (pattern === 1) return "md:col-span-4 cursor-pointer";
+    if (pattern === 2) return "md:col-span-4 cursor-pointer";
+    if (pattern === 3) return "md:col-span-6 cursor-pointer";
+    if (pattern === 4) return "md:col-span-6 cursor-pointer";
+    return "";
+};
 ---
 
 <Layout title="Kacper Smaga | Engineering Lab">
@@ -31,187 +121,16 @@ import "../styles/global.css";
             </header>
 
             <div class="grid grid-cols-1 md:grid-cols-12 gap-6">
-                <ProjectCard
-                    title="eShop Modular"
-                    description="Advanced modular e-commerce system built with Clean Architecture. Focused on scalability and module independence."
-                    image={imgEshop}
-                    tags={["CQRS", "DDD", "PostgreSQL", "SignalR"]}
-                    githubUrl="https://github.com/kacpersmaga"
-                    class="md:col-span-8 md:row-span-2 cursor-pointer"
-                    challenge="Avoiding the 'Big Ball of Mud' by implementing strict boundaries between business modules in a single repository."
-                    decisions="I chose a Modular Monolith over Microservices to reduce infrastructure complexity while keeping the code ready for future split."
-                    deepDive="Implemented an Outbox Pattern for reliable domain event dispatching between modules using EF Core and Background Services."
-                    lessons="Learned that proper aggregate design is the hardest but most crucial part of DDD."
-                />
-
-                <ProjectCard
-                    title="Auth Service"
-                    description="Identity Server integration with custom JWT flow and OAuth2. Complete security layer for microservices."
-                    tags={["OAuth2", "Identity", "JWT"]}
-                    githubUrl="https://github.com/kacpersmaga"
-                    class="md:col-span-4 cursor-pointer"
-                    challenge="Creating a secure, centralized authentication point that supports different client types (SPA, Mobile, Machine)."
-                    decisions="Used ASP.NET Core Identity with OpenIddict to have full control over the token generation process."
-                    deepDive="Customized JWT claims transformation to include fine-grained permissions based on user roles and organization context."
-                    lessons="Security is not only about code, but also about proper protocol flow and secret management."
-                />
-
-                <ProjectCard
-                    title="Clean Template"
-                    description="Personal starter template for .NET projects with pre-configured MediatR and FluentValidation."
-                    tags={["MediatR", "xUnit", "FluentVal"]}
-                    githubUrl="https://github.com/kacpersmaga"
-                    class="md:col-span-4 cursor-pointer"
-                    challenge="Setting up a new project always felt repetitive, so I automated the boilerplate."
-                    decisions="Included a Result Pattern to avoid throwing exceptions for business logic errors."
-                    deepDive="Built-in Global Exception Handler that maps different error types to proper RFC 7807 Problem Details."
-                    lessons="A good template is one that is minimal enough to be flexible, but strict enough to maintain order."
-                />
-
-                <ProjectCard
-                    title="Traffic Monitor"
-                    description="Real-time analytics processingmassive data streams using SignalR and Azure Functions."
-                    tags={["SignalR", "Azure", "Redis"]}
-                    githubUrl="https://github.com/kacpersmaga"
-                    class="md:col-span-6 cursor-pointer"
-                    challenge="Visualizing real-time data spikes without refreshing the page or overloading the client."
-                    decisions="Used Redis Backplane for SignalR to allow horizontal scaling across multiple server instances."
-                    deepDive="Implemented a throttling mechanism in Azure Functions to batch updates before sending them to the Hub."
-                    lessons="Websockets are powerful but require careful management of connection lifecycles."
-                />
-
-                <ProjectCard
-                    title="Event Bus"
-                    description="Lightweight event bus implementation over RabbitMQ for inter-module communication."
-                    tags={["RabbitMQ", "Events", "C#"]}
-                    githubUrl="https://github.com/kacpersmaga"
-                    class="md:col-span-6 cursor-pointer"
-                    challenge="Ensuring that messages are not lost when a consumer service is temporarily down."
-                    decisions="Implemented Dead Letter Exchanges (DLX) to handle failed message processing and retries."
-                    deepDive="Used Polly for exponential backoff and circuit breaker patterns during message consumption."
-                    lessons="Distributed systems fail in unpredictable ways; always design for failure."
-                />
+                {
+                    projects.map((project, index) => (
+                        <ProjectCard {...project} class={getGridClass(index)} />
+                    ))
+                }
             </div>
         </div>
     </main>
 
-    <div
-        id="project-modal"
-        class="fixed inset-0 z-[100] flex items-center justify-center p-4 bg-black/95 backdrop-blur-md hidden opacity-0 transition-all duration-300"
-    >
-        <div
-            class="bg-[#0f0f0f] border border-dotnet/30 rounded-[3rem] max-w-3xl w-full max-h-[90vh] overflow-y-auto relative shadow-[0_0_100px_-20px_rgba(81,43,212,0.3)]"
-        >
-            <button
-                id="close-project-modal"
-                class="absolute top-5 right-5 md:top-8 md:right-8 text-gray-500 hover:text-white transition-all z-[110] bg-[#0f0f0f]/80 backdrop-blur-sm p-2 md:px-3 md:py-2 rounded-full border border-white/5 flex items-center justify-center cursor-pointer"
-            >
-                <span
-                    class="hidden md:block text-[10px] font-mono uppercase tracking-[0.3em]"
-                    >[ close_log ]</span
-                >
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    class="w-5 h-5 md:hidden"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                >
-                    <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M6 18L18 6M6 6l12 12"></path>
-                </svg>
-            </button>
-
-            <div class="p-8 md:p-12 pt-12 md:pt-16">
-                <header class="mb-10 relative">
-                    <div class="w-full relative mb-4">
-                        <div
-                            id="modal-tags"
-                            class="flex flex-nowrap gap-2 overflow-x-auto no-scrollbar pr-12 md:pr-0 scroll-smooth"
-                        >
-                        </div>
-                        <div
-                            class="absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none md:hidden"
-                        >
-                        </div>
-                    </div>
-
-                    <h2
-                        id="modal-title"
-                        class="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter leading-[0.9] pr-10"
-                    >
-                    </h2>
-
-                    <a
-                        id="modal-github"
-                        href="#"
-                        target="_blank"
-                        class="inline-flex items-center gap-2 mt-6 text-dotnet hover:text-white transition-colors font-mono text-[10px] uppercase tracking-[0.2em] cursor-pointer"
-                    >
-                        view_source_code_on_github ↗
-                    </a>
-                </header>
-
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
-                    <div class="space-y-8">
-                        <section>
-                            <h4
-                                class="text-dotnet font-mono text-[9px] uppercase tracking-[0.3em] mb-3"
-                            >
-                                // The Challenge
-                            </h4>
-                            <p
-                                id="modal-challenge"
-                                class="text-gray-400 text-sm leading-relaxed"
-                            >
-                            </p>
-                        </section>
-                        <section>
-                            <h4
-                                class="text-dotnet font-mono text-[9px] uppercase tracking-[0.3em] mb-3"
-                            >
-                                // Architectural Decisions
-                            </h4>
-                            <p
-                                id="modal-decisions"
-                                class="text-gray-400 text-sm leading-relaxed"
-                            >
-                            </p>
-                        </section>
-                    </div>
-                    <div class="space-y-8">
-                        <section>
-                            <h4
-                                class="text-dotnet font-mono text-[9px] uppercase tracking-[0.3em] mb-3"
-                            >
-                                // Technical Deep Dive
-                            </h4>
-                            <p
-                                id="modal-deepdive"
-                                class="text-gray-400 text-sm leading-relaxed italic border-l border-dotnet/30 pl-4"
-                            >
-                            </p>
-                        </section>
-                        <section>
-                            <h4
-                                class="text-dotnet font-mono text-[9px] uppercase tracking-[0.3em] mb-3"
-                            >
-                                // Lessons Learned
-                            </h4>
-                            <p
-                                id="modal-lessons"
-                                class="text-gray-400 text-sm leading-relaxed"
-                            >
-                            </p>
-                        </section>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    <ProjectModal />
 </Layout>
 
 <style>
@@ -219,81 +138,4 @@ import "../styles/global.css";
         -webkit-text-stroke: 1px rgb(81, 43, 212);
         color: transparent;
     }
-
-    #project-modal .overflow-y-auto::-webkit-scrollbar {
-        width: 4px;
-    }
-    #project-modal .overflow-y-auto::-webkit-scrollbar-track {
-        background: transparent;
-    }
-    #project-modal .overflow-y-auto::-webkit-scrollbar-thumb {
-        background: rgba(81, 43, 212, 0.3);
-        border-radius: 10px;
-    }
-
-    .no-scrollbar::-webkit-scrollbar {
-        display: none;
-    }
-    .no-scrollbar {
-        -ms-overflow-style: none;
-        scrollbar-width: none;
-    }
 </style>
-
-<script>
-    const modal = document.getElementById("project-modal");
-    const closeBtn = document.getElementById("close-project-modal");
-    const cards = document.querySelectorAll(".project-card");
-
-    const openModal = (card) => {
-        const data = card.dataset;
-
-        document.getElementById("modal-title").textContent = data.title;
-        document.getElementById("modal-challenge").textContent =
-            data.challenge || "No documentation available.";
-        document.getElementById("modal-decisions").textContent =
-            data.decisions || "No documentation available.";
-        document.getElementById("modal-deepdive").textContent =
-            data.deepdive || "No documentation available.";
-        document.getElementById("modal-lessons").textContent =
-            data.lessons || "No documentation available.";
-        document.getElementById("modal-github").href = data.github;
-
-        const tagsContainer = document.getElementById("modal-tags");
-        tagsContainer.scrollLeft = 0;
-
-        tagsContainer.innerHTML = data.tags
-            ? data.tags
-                  .split(",")
-                  .map(
-                      (tag) =>
-                          `<span class="flex-shrink-0 text-[9px] px-3 py-1 bg-dotnet/10 text-dotnet border border-dotnet/20 rounded-md font-mono uppercase font-bold whitespace-nowrap cursor-default">${tag.trim()}</span>`,
-                  )
-                  .join("")
-            : "";
-
-        modal.classList.remove("hidden");
-        setTimeout(() => modal.classList.add("opacity-100"), 10);
-        document.body.style.overflow = "hidden";
-    };
-
-    const closeModal = () => {
-        modal.classList.remove("opacity-100");
-        setTimeout(() => {
-            modal.classList.add("hidden");
-            document.body.style.overflow = "auto";
-        }, 300);
-    };
-
-    cards.forEach((card) => {
-        card.addEventListener("click", () => openModal(card));
-    });
-
-    closeBtn?.addEventListener("click", closeModal);
-    modal?.addEventListener("click", (e) => {
-        if (e.target === modal) closeModal();
-    });
-    document.addEventListener("keydown", (e) => {
-        if (e.key === "Escape") closeModal();
-    });
-</script>
