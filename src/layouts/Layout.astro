@@ -4,6 +4,7 @@ interface Props {
 	description?: string;
 	canonicalUrl?: string;
 	jsonLd?: object;
+	preloadImage?: string;
 }
 
 const {
@@ -11,6 +12,7 @@ const {
 	description = ".NET Developer specializing in .NET 9, Clean Architecture, and microservices. Explore Kacper Smaga's portfolio and open-source projects.",
 	canonicalUrl,
 	jsonLd,
+	preloadImage,
 } = Astro.props;
 
 const canonical = canonicalUrl ?? Astro.url.href;
@@ -40,6 +42,7 @@ const ogImage = new URL("/og-image.jpg", Astro.site ?? Astro.url);
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
 		<link rel="canonical" href={canonical} />
+		{preloadImage && <link rel="preload" as="image" href={preloadImage} fetchpriority="high" />}
 		<meta name="generator" content={Astro.generator} />
 
 		<!-- Primary meta -->

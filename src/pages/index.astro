@@ -6,6 +6,10 @@ import ProjectsCard from "../components/bento/ProjectsCard.astro";
 import ResumeCard from "../components/bento/ResumeCard.astro";
 import Socials from "../components/bento/Socials.astro";
 import "../styles/global.css";
+import { getImage } from "astro:assets";
+import myProfileImage from "../assets/my-profile.jpg";
+
+const preloadedProfile = await getImage({ src: myProfileImage, width: 400, height: 400, format: "webp" });
 
 const jsonLd = [
     {
@@ -60,6 +64,7 @@ const jsonLd = [
     title="Kacper Smaga | .NET Developer"
     description="21-year-old .NET developer from Cracow. Specializing in .NET 9, Clean Architecture, DDD, CQRS, microservices, gRPC, GraphQL, and RabbitMQ. Open to junior .NET roles."
     jsonLd={jsonLd}
+    preloadImage={preloadedProfile.src}
 >
     <main
         class="flex md:items-center justify-center min-h-screen w-full p-4 md:p-10"
