@@ -6,20 +6,72 @@ import ProjectsCard from "../components/bento/ProjectsCard.astro";
 import ResumeCard from "../components/bento/ResumeCard.astro";
 import Socials from "../components/bento/Socials.astro";
 import "../styles/global.css";
+
+const jsonLd = [
+    {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        name: "Kacper Smaga",
+        url: "https://kacpersmaga.com",
+        jobTitle: ".NET Developer",
+        description:
+            "21-year-old .NET developer from Cracow specializing in .NET 9, Clean Architecture, microservices, gRPC, GraphQL, and RabbitMQ.",
+        email: "kacper.smaga@onet.pl",
+        address: {
+            "@type": "PostalAddress",
+            addressLocality: "Cracow",
+            addressCountry: "PL",
+        },
+        sameAs: [
+            "https://github.com/kacpersmaga",
+            "https://www.linkedin.com/in/kacpersmaga/",
+        ],
+        knowsAbout: [
+            "C#",
+            ".NET 9",
+            "Clean Architecture",
+            "Domain-Driven Design",
+            "CQRS",
+            "Microservices",
+            "gRPC",
+            "GraphQL",
+            "RabbitMQ",
+            "Docker",
+            "PostgreSQL",
+            "Redis",
+        ],
+    },
+    {
+        "@context": "https://schema.org",
+        "@type": "WebSite",
+        name: "Kacper Smaga | Portfolio",
+        url: "https://kacpersmaga.com",
+        description:
+            ".NET Developer portfolio — projects, tech stack, and resume.",
+        author: {
+            "@type": "Person",
+            name: "Kacper Smaga",
+        },
+    },
+];
 ---
 
-<Layout title="Kacper Smaga | .NET Developer">
-	<main
-		class="flex md:items-center justify-center min-h-screen w-full p-4 md:p-10"
-	>
-		<div
-			class="grid grid-cols-1 md:grid-cols-12 gap-5 auto-rows-auto md:auto-rows-[120px] w-full max-w-[1200px] py-10 md:py-0"
-		>
-			<Hero />
-			<Expertise />
-			<ProjectsCard />
-			<ResumeCard />
-			<Socials />
-		</div>
-	</main>
+<Layout
+    title="Kacper Smaga | .NET Developer"
+    description="21-year-old .NET developer from Cracow. Specializing in .NET 9, Clean Architecture, DDD, CQRS, microservices, gRPC, GraphQL, and RabbitMQ. Open to junior .NET roles."
+    jsonLd={jsonLd}
+>
+    <main
+        class="flex md:items-center justify-center min-h-screen w-full p-4 md:p-10"
+    >
+        <div
+            class="grid grid-cols-1 md:grid-cols-12 gap-5 auto-rows-auto md:auto-rows-[120px] w-full max-w-[1200px] py-10 md:py-0"
+        >
+            <Hero />
+            <Expertise />
+            <ProjectsCard />
+            <ResumeCard />
+            <Socials />
+        </div>
+    </main>
 </Layout>

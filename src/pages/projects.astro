@@ -7,6 +7,55 @@ import EShopDiagram from "../components/eShopDiagram.astro";
 import "../styles/global.css";
 import ProjectModal from "../components/ProjectModal.astro";
 
+const jsonLd = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Projects | Kacper Smaga",
+    description:
+        "Open-source .NET projects by Kacper Smaga — eShop (Clean Architecture), TicketFlow (microservices, gRPC, GraphQL, RabbitMQ), and more.",
+    url: "https://kacpersmaga.com/projects",
+    author: {
+        "@type": "Person",
+        name: "Kacper Smaga",
+        url: "https://kacpersmaga.com",
+    },
+    hasPart: [
+        {
+            "@type": "SoftwareSourceCode",
+            name: "eShop",
+            description:
+                "Modular e-commerce system built with .NET 9, Clean Architecture, DDD, and CQRS.",
+            codeRepository: "https://github.com/kacpersmaga/eShop",
+            programmingLanguage: "C#",
+        },
+        {
+            "@type": "SoftwareSourceCode",
+            name: "TicketFlow",
+            description:
+                "Microservices-based ticketing system using .NET Aspire, gRPC, GraphQL, and RabbitMQ.",
+            codeRepository: "https://github.com/kacpersmaga/TicketFlow",
+            programmingLanguage: "C#",
+        },
+        {
+            "@type": "SoftwareSourceCode",
+            name: "NegotiationApp",
+            description:
+                ".NET 9 REST API for product price negotiation with MediatR and JWT.",
+            codeRepository:
+                "https://github.com/kacpersmaga/ProductNegotiationApp",
+            programmingLanguage: "C#",
+        },
+        {
+            "@type": "SoftwareSourceCode",
+            name: "SWIFT Codes API",
+            description:
+                "FastAPI application for managing SWIFT/BIC bank codes with PostgreSQL.",
+            codeRepository: "https://github.com/kacpersmaga/swift-codes-api",
+            programmingLanguage: "Python",
+        },
+    ],
+};
+
 const eshop = {
     title: "eShop",
     description:
@@ -97,7 +146,11 @@ const otherProjects = [
 ];
 ---
 
-<Layout title="Kacper Smaga | Projects">
+<Layout
+    title="Projects | Kacper Smaga — .NET Developer"
+    description="Open-source .NET projects by Kacper Smaga — eShop (Clean Architecture, DDD, CQRS), TicketFlow (microservices, gRPC, GraphQL, RabbitMQ), and more."
+    jsonLd={jsonLd}
+>
     <main class="min-h-screen w-full p-4 md:p-12 flex flex-col items-center">
         <div class="w-full max-w-[1200px]">
             <header class="mb-16">
