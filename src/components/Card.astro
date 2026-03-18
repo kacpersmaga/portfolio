@@ -7,15 +7,16 @@ const { class: className, id } = Astro.props;
     id={id}
     class={`
         relative group overflow-hidden
-        bg-bento-bg border border-bento-border rounded-[2.5rem] 
+        bg-bento-bg border border-bento-border rounded-[2.5rem]
         p-8 transition-all duration-300 ease-out
-     hover:border-dotnet/50 
-        hover:shadow-[0_0_40px_-15px_rgba(81,43,212,0.4)]
+        hover:border-dotnet/40
+        hover:shadow-[0_0_40px_-12px_rgba(81,43,212,0.35)]
         ${className}
     `}
 >
+    <!-- Subtle hover gradient -->
     <div
-        class="absolute -inset-px bg-gradient-to-br from-dotnet/5 via-transparent to-astro/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+        class="absolute -inset-px bg-gradient-to-br from-dotnet/[0.06] via-transparent to-astro/[0.04] opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2.5rem] pointer-events-none"
     >
     </div>
 

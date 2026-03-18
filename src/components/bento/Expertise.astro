@@ -6,48 +6,92 @@ import Card from "../Card.astro";
     class="col-span-1 md:col-span-4 md:row-span-4 flex flex-col justify-between border-dotnet/10 h-full"
 >
     <div>
-        <h3 class="text-xl font-bold text-white mb-1">Expertise</h3>
-        <p
-            class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold"
-        >
-            Tech Stack
+        <h3 class="text-xl font-bold t-primary mb-1">Tech Stack</h3>
+        <p class="text-[10px] text-gray-500 uppercase tracking-[0.2em] font-bold">
+            Skills & Tools
         </p>
     </div>
-    <div class="space-y-3 mt-6">
+
+    <div class="space-y-2 mt-5 flex-1">
+        <!-- Primary -->
         <div
-            class="flex justify-between items-center bg-white/[0.03] p-3 rounded-2xl border border-white/[0.05]"
+            class="flex justify-between items-center bg-white/[0.03] px-3 py-2.5 rounded-2xl border border-white/[0.05]"
         >
-            <span class="font-bold text-sm">.NET 9 / C#</span>
+            <span class="font-bold text-sm t-primary">C# / .NET 9</span>
             <span
-                class="text-[9px] px-2 py-1 bg-dotnet/20 text-dotnet rounded-lg font-mono uppercase"
-                >Backend</span
+                class="text-[8px] px-2 py-0.5 bg-dotnet/20 text-dotnet rounded-md font-mono uppercase"
+                >Primary</span
             >
         </div>
+        <!-- Protocols -->
         <div
-            class="flex justify-between items-center bg-white/[0.03] p-3 rounded-2xl border border-white/[0.05]"
+            class="flex justify-between items-center bg-white/[0.03] px-3 py-2.5 rounded-2xl border border-white/[0.05]"
         >
-            <span class="font-bold text-sm">Next.js / TS</span>
+            <span class="font-bold text-sm t-primary">gRPC · GraphQL</span>
             <span
-                class="text-[9px] px-2 py-1 bg-white/10 text-white rounded-lg font-mono uppercase"
-                >Frontend</span
+                class="text-[8px] px-2 py-0.5 bg-blue-500/20 text-blue-400 rounded-md font-mono uppercase"
+                >Protocols</span
             >
         </div>
+        <!-- Messaging -->
         <div
-            class="flex justify-between items-center bg-white/[0.03] p-3 rounded-2xl border border-white/[0.05]"
+            class="flex justify-between items-center bg-white/[0.03] px-3 py-2.5 rounded-2xl border border-white/[0.05]"
         >
-            <span class="font-bold text-sm">PostgreSQL</span>
+            <span class="font-bold text-sm t-primary">RabbitMQ</span>
             <span
-                class="text-[9px] px-2 py-1 bg-blue-500/20 text-blue-400 rounded-lg font-mono uppercase"
-                >Database</span
+                class="text-[8px] px-2 py-0.5 bg-orange-500/20 text-orange-400 rounded-md font-mono uppercase"
+                >Messaging</span
+            >
+        </div>
+        <!-- Data -->
+        <div
+            class="flex justify-between items-center bg-white/[0.03] px-3 py-2.5 rounded-2xl border border-white/[0.05]"
+        >
+            <span class="font-bold text-sm t-primary">PostgreSQL · Redis</span>
+            <span
+                class="text-[8px] px-2 py-0.5 bg-emerald-500/20 text-emerald-400 rounded-md font-mono uppercase"
+                >Data</span
+            >
+        </div>
+        <!-- DevOps -->
+        <div
+            class="flex justify-between items-center bg-white/[0.03] px-3 py-2.5 rounded-2xl border border-white/[0.05]"
+        >
+            <span class="font-bold text-sm t-primary">Docker · Aspire</span>
+            <span
+                class="text-[8px] px-2 py-0.5 bg-sky-500/20 text-sky-400 rounded-md font-mono uppercase"
+                >DevOps</span
             >
         </div>
     </div>
-    <div class="mt-8 p-4 bg-dotnet/5 rounded-2xl border border-dotnet/10">
-        <p
-            class="text-[11px] text-gray-400 leading-relaxed font-medium text-center md:text-left"
-        >
-            <span class="text-dotnet">#</span> Clean Architecture, DDD, Microservices
-            & Cloud Native Approach.
-        </p>
+
+    <!-- Patterns + Certs -->
+    <div class="mt-4 space-y-2">
+        <div class="p-3 bg-dotnet/5 rounded-2xl border border-dotnet/10">
+            <p
+                class="text-[10px] text-gray-400 leading-relaxed font-medium text-center"
+            >
+                <span class="text-dotnet">#</span> Clean Architecture · DDD · CQRS
+                · Microservices
+            </p>
+        </div>
+        <div class="flex flex-wrap gap-1.5 justify-center">
+            <span
+                class="text-[8px] px-2 py-0.5 bg-white/[0.03] border border-white/[0.06] text-gray-500 rounded-md font-mono uppercase"
+                >AZ-900</span
+            >
+            <span
+                class="text-[8px] px-2 py-0.5 bg-white/[0.03] border border-white/[0.06] text-gray-500 rounded-md font-mono uppercase"
+                >DP-900</span
+            >
+            <span
+                class="text-[8px] px-2 py-0.5 bg-white/[0.03] border border-white/[0.06] text-gray-500 rounded-md font-mono uppercase"
+                >AI-900</span
+            >
+            <span
+                class="text-[8px] px-2 py-0.5 bg-white/[0.03] border border-white/[0.06] text-gray-500 rounded-md font-mono uppercase"
+                >ITS ×9</span
+            >
+        </div>
     </div>
 </Card>

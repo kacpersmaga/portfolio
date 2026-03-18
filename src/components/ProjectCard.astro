@@ -7,6 +7,7 @@ interface Props {
     image?: any;
     tags: string[];
     githubUrl: string;
+    liveUrl?: string;
     class?: string;
     challenge?: string;
     decisions?: string;
@@ -20,16 +21,19 @@ const {
     image,
     tags,
     githubUrl,
+    liveUrl,
     class: className,
     challenge,
     decisions,
     deepDive,
     lessons,
 } = Astro.props;
+
+const hasVisualSlot = Astro.slots.has("visual");
 ---
 
 <div
-    class={`project-card group relative overflow-hidden bg-bento-bg border border-bento-border rounded-[2.5rem] p-6 transition-all duration-500 hover:border-dotnet/50 hover:shadow-[0_0_50px_-15px_rgba(81,43,212,0.4)] flex flex-col justify-between cursor-pointer ${className}`}
+    class={`project-card group relative overflow-hidden bg-bento-bg border border-bento-border rounded-[2.5rem] p-6 md:p-8 transition-all duration-500 hover:border-dotnet/50 hover:shadow-[0_0_60px_-15px_rgba(81,43,212,0.35)] flex flex-col cursor-pointer ${className}`}
     data-title={title}
     data-challenge={challenge}
     data-decisions={decisions}
@@ -37,19 +41,27 @@ const {
     data-lessons={lessons}
     data-tags={tags.join(", ")}
     data-github={githubUrl}
+    data-liveurl={liveUrl || null}
 >
-    <div class="relative z-10" id="card-content">
-        <div class="flex justify-between items-start mb-4">
-            <div>
+    <!-- Hover gradient overlay -->
+    <div
+        class="absolute -inset-px bg-gradient-to-br from-dotnet/5 via-transparent to-astro/5 opacity-0 group-hover:opacity-100 transition-opacity duration-500 rounded-[2.5rem] pointer-events-none"
+    >
+    </div>
+
+    <div class="relative z-10 flex flex-col h-full">
+        <!-- Header: title + tags + github -->
+        <div class="flex justify-between items-start mb-4 gap-4">
+            <div class="flex-1 min-w-0">
                 <h3
-                    class="text-3xl font-black text-white italic uppercase tracking-tighter mb-2 leading-none"
+                    class="text-3xl font-black t-primary italic uppercase tracking-tighter mb-3 leading-none"
                 >
                     {title}
                 </h3>
-                <div class="flex flex-wrap gap-2">
+                <div class="flex flex-wrap gap-1.5">
                     {
                         tags.map((tag) => (
-                            <span class="text-[9px] px-2 py-0.5 bg-dotnet/10 border border-dotnet/20 text-dotnet rounded-md font-mono uppercase font-bold">
+                            <span class="text-[9px] px-2.5 py-1 bg-dotnet/10 border border-dotnet/20 text-dotnet rounded-lg font-mono uppercase font-bold tracking-wide">
                                 {tag}
                             </span>
                         ))
@@ -60,12 +72,13 @@ const {
                 href={githubUrl}
                 target="_blank"
                 onclick="event.stopPropagation()"
-                class="p-3 bg-white/5 hover:bg-dotnet hover:text-white rounded-2xl text-gray-400 transition-all cursor-pointer"
+                class="shrink-0 p-3 bg-white/5 hover:bg-dotnet hover:text-white rounded-2xl text-gray-400 transition-all cursor-pointer"
+                title="View on GitHub"
             >
                 <svg
                     xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
+                    width="18"
+                    height="18"
                     viewBox="0 0 24 24"
                     fill="none"
                     stroke="currentColor"
@@ -77,25 +90,40 @@ const {
             </a>
         </div>
 
-        <p class="text-gray-400 text-sm leading-relaxed mb-6">{description}</p>
+        <!-- Description -->
+        <p class="text-gray-400 text-sm leading-relaxed mb-5">{description}</p>
 
+        <!-- Visual: image OR slot (e.g. architecture diagram) -->
         {
-            image && (
-                <div class="relative w-full h-64 md:h-80 overflow-hidden rounded-[1.5rem] border border-white/5 mb-2 shadow-2xl">
+            image ? (
+                <div class="relative w-full h-56 md:h-72 overflow-hidden rounded-[1.5rem] border border-white/5 mb-4 shadow-2xl">
                     <Image
                         src={image}
                         alt={title}
-                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                     />
-                    <div class="absolute inset-0 bg-gradient-to-t from-bento-bg/60 to-transparent" />
+                    <div class="absolute inset-0 bg-gradient-to-t from-bento-bg/70 to-transparent" />
                 </div>
-            )
+            ) : hasVisualSlot ? (
+                <slot name="visual" />
+            ) : null
         }
-    </div>
 
-    <button
-        class="view-details-btn cursor-pointer mt-4 flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 hover:text-dotnet transition-colors"
-    >
-        <span class="w-8 h-px bg-gray-800"></span> View_Engineering_Log
-    </button>
+        <!-- Footer -->
+        <div class="mt-auto pt-4 flex items-center justify-between">
+            <button
+                class="view-details-btn cursor-pointer flex items-center gap-2 text-[10px] font-black uppercase tracking-[0.2em] text-gray-500 hover:text-dotnet transition-colors"
+            >
+                <span class="w-8 h-px bg-gray-700 group-hover:bg-dotnet/50 transition-colors"></span>
+                View_Engineering_Log
+            </button>
+            {
+                liveUrl && (
+                    <span class="text-[9px] font-mono text-astro/70 uppercase tracking-wider">
+                        ● Live
+                    </span>
+                )
+            }
+        </div>
+    </div>
 </div>

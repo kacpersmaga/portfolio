@@ -1,0 +1,139 @@
+---
+// Architecture diagram for TicketFlow microservices system
+---
+
+<div class="mt-1 mb-4 rounded-[1.5rem] border border-dotnet/15 bg-dotnet/[0.03] overflow-hidden">
+    <!-- Header bar -->
+    <div class="px-4 py-2.5 border-b border-dotnet/10 flex items-center gap-2">
+        <div class="flex gap-1.5">
+            <span class="w-2.5 h-2.5 rounded-full bg-red-500/60"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-yellow-500/60"></span>
+            <span class="w-2.5 h-2.5 rounded-full bg-green-500/60"></span>
+        </div>
+        <span class="text-[9px] font-mono text-gray-600 uppercase tracking-[0.2em] ml-1"
+            >// service_architecture.proto</span
+        >
+    </div>
+
+    <div class="p-5 font-mono text-[10px]">
+        <!-- External → Gateway -->
+        <div class="flex items-center gap-2 mb-3">
+            <div
+                class="px-2.5 py-1.5 rounded-lg border border-white/10 bg-white/5 text-gray-400 uppercase text-[9px] font-bold tracking-wide"
+            >
+                Client
+            </div>
+            <div class="flex flex-col items-center">
+                <span class="text-gray-600 text-[8px] mb-0.5">GraphQL</span>
+                <span class="text-gray-500">────→</span>
+            </div>
+            <div
+                class="px-3 py-1.5 rounded-lg border border-dotnet/40 bg-dotnet/15 text-dotnet uppercase text-[9px] font-bold tracking-wide shadow-[0_0_12px_-4px_rgba(81,43,212,0.4)]"
+            >
+                Gateway · HotChocolate
+            </div>
+        </div>
+
+        <!-- Branch lines from Gateway -->
+        <div class="ml-[3.25rem] border-l-2 border-dotnet/20 pl-4 space-y-2 mb-3">
+            <!-- gRPC → Catalog -->
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5 w-20 shrink-0">
+                    <span class="text-dotnet/60 text-[8px] uppercase tracking-wide">gRPC</span>
+                    <span class="text-gray-600 text-[9px]">──→</span>
+                </div>
+                <div
+                    class="px-2.5 py-1 rounded-lg border border-blue-500/30 bg-blue-500/10 text-blue-400 uppercase text-[9px] font-bold"
+                >
+                    Catalog
+                </div>
+                <span class="text-gray-600 text-[8px]">+ Redis ⚡</span>
+            </div>
+
+            <!-- HTTP → Identity -->
+            <div class="flex items-center gap-2">
+                <div class="flex items-center gap-1.5 w-20 shrink-0">
+                    <span class="text-dotnet/60 text-[8px] uppercase tracking-wide">HTTP</span>
+                    <span class="text-gray-600 text-[9px]">──→</span>
+                </div>
+                <div
+                    class="px-2.5 py-1 rounded-lg border border-emerald-500/30 bg-emerald-500/10 text-emerald-400 uppercase text-[9px] font-bold"
+                >
+                    Identity
+                </div>
+                <span class="text-gray-600 text-[8px]">JWT + Refresh</span>
+            </div>
+
+            <!-- REST → Ordering → RabbitMQ → Notifications -->
+            <div class="flex flex-wrap items-center gap-1.5">
+                <div class="flex items-center gap-1.5 w-20 shrink-0">
+                    <span class="text-dotnet/60 text-[8px] uppercase tracking-wide">REST</span>
+                    <span class="text-gray-600 text-[9px]">──→</span>
+                </div>
+                <div
+                    class="px-2.5 py-1 rounded-lg border border-violet-500/30 bg-violet-500/10 text-violet-400 uppercase text-[9px] font-bold"
+                >
+                    Ordering
+                </div>
+                <span class="text-gray-600 text-[9px]">──→</span>
+                <div
+                    class="px-2.5 py-1 rounded-lg border border-orange-500/30 bg-orange-500/10 text-orange-400 uppercase text-[9px] font-bold"
+                >
+                    RabbitMQ
+                </div>
+                <span class="text-gray-600 text-[9px]">──→</span>
+                <div
+                    class="px-2.5 py-1 rounded-lg border border-yellow-500/30 bg-yellow-500/10 text-yellow-400 uppercase text-[9px] font-bold"
+                >
+                    Notifications
+                </div>
+            </div>
+        </div>
+
+        <!-- Infrastructure row -->
+        <div class="pt-3 border-t border-white/5 flex flex-wrap gap-1.5">
+            <span
+                class="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.07] text-gray-500 text-[8px] uppercase tracking-wide"
+                >PostgreSQL ×3</span
+            >
+            <span
+                class="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.07] text-gray-500 text-[8px] uppercase tracking-wide"
+                >Redis</span
+            >
+            <span
+                class="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.07] text-gray-500 text-[8px] uppercase tracking-wide"
+                >.NET Aspire</span
+            >
+            <span
+                class="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.07] text-gray-500 text-[8px] uppercase tracking-wide"
+                >OpenTelemetry</span
+            >
+            <span
+                class="px-2 py-0.5 rounded-md bg-white/[0.04] border border-white/[0.07] text-gray-500 text-[8px] uppercase tracking-wide"
+                >MassTransit</span
+            >
+        </div>
+    </div>
+</div>
+
+<style>
+    /* Light mode adjustments for the diagram */
+    [data-theme="light"] .border-white\/10 {
+        border-color: rgba(0, 0, 0, 0.1);
+    }
+    [data-theme="light"] .bg-white\/5 {
+        background-color: rgba(0, 0, 0, 0.04);
+    }
+    [data-theme="light"] .bg-white\/\[0\.04\] {
+        background-color: rgba(0, 0, 0, 0.04);
+    }
+    [data-theme="light"] .border-white\/\[0\.07\] {
+        border-color: rgba(0, 0, 0, 0.07);
+    }
+    [data-theme="light"] .border-white\/5 {
+        border-color: rgba(0, 0, 0, 0.06);
+    }
+    [data-theme="light"] .text-gray-600 {
+        color: #9ca3af !important;
+    }
+</style>

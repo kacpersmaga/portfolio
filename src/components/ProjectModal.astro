@@ -11,7 +11,7 @@
     >
         <button
             id="close-project-modal"
-            class="absolute top-5 right-5 md:top-8 md:right-8 text-gray-500 hover:text-white transition-all z-[110] bg-[#0f0f0f]/80 backdrop-blur-sm p-2 md:px-3 md:py-2 rounded-full border border-white/5 flex items-center justify-center cursor-pointer"
+            class="absolute top-5 right-5 md:top-8 md:right-8 text-gray-500 hover:text-dotnet transition-all z-[110] bg-[#0f0f0f]/80 backdrop-blur-sm p-2 md:px-3 md:py-2 rounded-full border border-white/5 flex items-center justify-center cursor-pointer"
         >
             <span
                 class="hidden md:block text-[10px] font-mono uppercase tracking-[0.3em]"
@@ -41,25 +41,35 @@
                     >
                     </div>
                     <div
-                        class="absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none md:hidden"
+                        class="modal-tag-fade absolute right-0 top-0 h-full w-12 bg-gradient-to-l from-[#0f0f0f] to-transparent pointer-events-none md:hidden"
                     >
                     </div>
                 </div>
 
                 <h2
                     id="modal-title"
-                    class="text-4xl md:text-7xl font-black text-white uppercase italic tracking-tighter leading-[0.9] pr-10"
+                    class="text-4xl md:text-7xl font-black t-primary uppercase italic tracking-tighter leading-[0.9] pr-10"
                 >
                 </h2>
 
-                <a
-                    id="modal-github"
-                    href="#"
-                    target="_blank"
-                    class="inline-flex items-center gap-2 mt-6 text-dotnet hover:text-white transition-colors font-mono text-[10px] uppercase tracking-[0.2em] cursor-pointer"
-                >
-                    view_source_code_on_github ↗
-                </a>
+                <div class="flex flex-wrap gap-4 mt-6">
+                    <a
+                        id="modal-github"
+                        href="#"
+                        target="_blank"
+                        class="inline-flex items-center gap-2 text-dotnet hover:text-white transition-colors font-mono text-[10px] uppercase tracking-[0.2em] cursor-pointer"
+                    >
+                        view_source_code ↗
+                    </a>
+                    <a
+                        id="modal-liveurl"
+                        href="#"
+                        target="_blank"
+                        class="inline-flex items-center gap-2 text-astro hover:text-white transition-colors font-mono text-[10px] uppercase tracking-[0.2em] cursor-pointer hidden"
+                    >
+                        view_live_demo ↗
+                    </a>
+                </div>
             </header>
 
             <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
@@ -146,23 +156,39 @@
     const closeBtn = document.getElementById("close-project-modal");
     const cards = document.querySelectorAll(".project-card");
 
-    const openModal = (card) => {
-        const data = card.dataset;
+    const openModal = (card: Element) => {
+        const data = (card as HTMLElement).dataset;
 
-        document.getElementById("modal-title").textContent = data.title;
-        document.getElementById("modal-challenge").textContent =
-            data.challenge || "No documentation available.";
-        document.getElementById("modal-decisions").textContent =
-            data.decisions || "No documentation available.";
-        document.getElementById("modal-deepdive").textContent =
-            data.deepdive || "No documentation available.";
-        document.getElementById("modal-lessons").textContent =
+        (document.getElementById("modal-title") as HTMLElement).textContent =
+            data.title ?? "";
+        (
+            document.getElementById("modal-challenge") as HTMLElement
+        ).textContent = data.challenge || "No documentation available.";
+        (
+            document.getElementById("modal-decisions") as HTMLElement
+        ).textContent = data.decisions || "No documentation available.";
+        (
+            document.getElementById("modal-deepdive") as HTMLElement
+        ).textContent = data.deepdive || "No documentation available.";
+        (document.getElementById("modal-lessons") as HTMLElement).textContent =
             data.lessons || "No documentation available.";
-        document.getElementById("modal-github").href = data.github;
+        (document.getElementById("modal-github") as HTMLAnchorElement).href =
+            data.github ?? "#";
 
-        const tagsContainer = document.getElementById("modal-tags");
+        const liveLink = document.getElementById(
+            "modal-liveurl",
+        ) as HTMLAnchorElement;
+        if (data.liveurl) {
+            liveLink.href = data.liveurl;
+            liveLink.classList.remove("hidden");
+        } else {
+            liveLink.classList.add("hidden");
+        }
+
+        const tagsContainer = document.getElementById(
+            "modal-tags",
+        ) as HTMLElement;
         tagsContainer.scrollLeft = 0;
-
         tagsContainer.innerHTML = data.tags
             ? data.tags
                   .split(",")
@@ -173,15 +199,15 @@
                   .join("")
             : "";
 
-        modal.classList.remove("hidden");
-        setTimeout(() => modal.classList.add("opacity-100"), 10);
+        (modal as HTMLElement).classList.remove("hidden");
+        setTimeout(() => (modal as HTMLElement).classList.add("opacity-100"), 10);
         document.body.style.overflow = "hidden";
     };
 
     const closeModal = () => {
-        modal.classList.remove("opacity-100");
+        (modal as HTMLElement).classList.remove("opacity-100");
         setTimeout(() => {
-            modal.classList.add("hidden");
+            (modal as HTMLElement).classList.add("hidden");
             document.body.style.overflow = "auto";
         }, 300);
     };
